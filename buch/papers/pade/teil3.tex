@@ -1,43 +1,339 @@
-%
-% teil3.tex -- Beispiel-File für Teil 3
-%
-% (c) 2020 Prof Dr Andreas Müller, Hochschule Rapperswil
-%
-% !TEX root = ../../buch.tex
-% !TEX encoding = UTF-8
-%
-\section{Teil 3
-\label{pade:section:teil3}}
-\kopfrechts{Teil 3}
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-quae ab illo inventore veritatis et quasi architecto beatae vitae
-dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
-est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
-velit, sed quia non numquam eius modi tempora incidunt ut labore
-et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima
-veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
-reprehenderit qui in ea voluptate velit esse quam nihil molestiae
-consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla
-pariatur?
+\% !TEX root = ../../buch.tex \% !TEX encoding = UTF-8 \%
+\textbackslash section\{Anwendung und Erweiterung der
+Padé-Approximation\} \textbackslash label\{pade:section:anwendung\}
+\textbackslash kopfrechts\{Anwendung und Erweiterung\}
 
-\subsection{De finibus bonorum et malorum
-\label{pade:subsection:malorum}}
-At vero eos et accusamus et iusto odio dignissimos ducimus qui
-blanditiis praesentium voluptatum deleniti atque corrupti quos
-dolores et quas molestias excepturi sint occaecati cupiditate non
-provident, similique sunt in culpa qui officia deserunt mollitia
-animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis
-est et expedita distinctio. Nam libero tempore, cum soluta nobis
-est eligendi optio cumque nihil impedit quo minus id quod maxime
-placeat facere possimus, omnis voluptas assumenda est, omnis dolor
-repellendus. Temporibus autem quibusdam et aut officiis debitis aut
-rerum necessitatibus saepe eveniet ut et voluptates repudiandae
-sint et molestiae non recusandae. Itaque earum rerum hic tenetur a
-sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-consequatur aut perferendis doloribus asperiores repellat.
+\textbackslash subsection\{Anwendung der Padé-{[}1/1{]}-Approximation\}
+\textbackslash label\{pade:subsection:beispiel\}
 
+Nachdem im vorherigen Abschnitt die Padé-{[}1/1{]}-Approximation
+hergeleitet wurde, soll sie nun anhand eines einfachen Zahlenbeispiels
+angewendet werden. Ziel ist es, die Genauigkeit der Padé-Approximation
+mit jener des entsprechenden Taylor-Polynoms zu vergleichen.
 
+Als Beispiel dient wiederum die Exponentialfunktion
+\textbackslash(f(x)=e\^{}x\textbackslash). Der Funktionswert soll für
+\textbackslash(x=0.5\textbackslash) approximiert werden.
+
+Der exakte Wert beträgt \textbackslash begin\{equation\} e\^{}\{0.5\} =
+1.64872. \textbackslash label\{pade:eq:exp05\}
+\textbackslash end\{equation\} Zunächst wird das Taylor-Polynom zweiter
+Ordnung verwendet, \textbackslash begin\{equation\} T\_2(x) =
+1+x+\textbackslash frac\{x\^{}2\}\{2\}.
+\textbackslash label\{pade:eq:taylor2\} \textbackslash end\{equation\}
+Durch Einsetzen von \textbackslash(x=0.5\textbackslash) erhält man
+\textbackslash begin\{align\} T\_2(0.5) \&= 1 + 0.5 +
+\textbackslash frac\{0.5\^{}2\}\{2\} \textbackslash\textbackslash{} \&=
+1 + 0.5 + 0.125 \textbackslash\textbackslash{} \&= 1.625.
+\textbackslash end\{align\}
+
+Nun wird die Padé-{[}1/1{]}-Approximation verwendet,
+\textbackslash begin\{equation\} R\_\{1,1\}(x) =
+\textbackslash frac\{1+\textbackslash frac\{x\}\{2\}\}
+\{1-\textbackslash frac\{x\}\{2\}\}.
+\textbackslash label\{pade:eq:pade11\_beispiel\}
+\textbackslash end\{equation\} Für denselben Wert ergibt sich
+\textbackslash begin\{align\} R\_\{1,1\}(0.5) \&=
+\textbackslash frac\{1+0.25\} \{1-0.25\} \textbackslash\textbackslash{}
+\&= \textbackslash frac\{1.25\}\{0.75\} \textbackslash\textbackslash{}
+\&= 1.66667. \textbackslash end\{align\}
+
+Zur objektiven Beurteilung beider Verfahren werden nun der absolute und
+der relative Fehler berechnet.
+
+Der absolute Fehler ist definiert durch \textbackslash begin\{equation\}
+\textbackslash varepsilon\_\{\textbackslash mathrm\{abs\}\} =
+\textbar x\_\{\textbackslash mathrm\{exakt\}\}-x\_\{\textbackslash mathrm\{approx\}\}\textbar.
+\textbackslash label\{pade:eq:absolut\} \textbackslash end\{equation\}
+Der relative Fehler ergibt sich zu \textbackslash begin\{equation\}
+\textbackslash varepsilon\_\{\textbackslash mathrm\{rel\}\} =
+\textbackslash frac\{\textbar x\_\{\textbackslash mathrm\{exakt\}\}-x\_\{\textbackslash mathrm\{approx\}\}\textbar\}
+\{\textbar x\_\{\textbackslash mathrm\{exakt\}\}\textbar\}.
+\textbackslash label\{pade:eq:relativ\} \textbackslash end\{equation\}
+
+Die Ergebnisse sind in
+Tabelle\textasciitilde\textbackslash ref\{pade:tab:vergleich\}
+zusammengefasst.
+
+\textbackslash begin\{table\}{[}ht{]} \textbackslash centering
+\textbackslash caption\{Vergleich der Approximationen für
+\textbackslash(x=0.5\textbackslash).\}
+\textbackslash label\{pade:tab:vergleich\}
+\textbackslash begin\{tabular\}\{lccc\} \textbackslash hline Verfahren
+\& Approximation \& Absoluter Fehler \& Relativer
+Fehler\textbackslash\textbackslash{} \textbackslash hline Exakter Wert
+\& 1.64872 \& 0 \& 0\textbackslash\textbackslash{} Taylor
+\textbackslash(T\_2\textbackslash) \& 1.62500 \& 0.02372 \&
+1.44\textbackslash,\textbackslash\%\textbackslash\textbackslash{} Padé
+\textbackslash({[}1/1{]}\textbackslash) \& 1.66667 \& 0.01795 \&
+1.09\textbackslash,\textbackslash\%\textbackslash\textbackslash{}
+\textbackslash hline \textbackslash end\{tabular\}
+\textbackslash end\{table\}
+
+Bereits dieses einfache Beispiel zeigt, dass beide Verfahren mit wenigen
+Rechenschritten eine gute Näherung liefern. Die
+Padé-{[}1/1{]}-Approximation weist jedoch sowohl einen kleineren
+absoluten als auch einen kleineren relativen Fehler auf als das
+Taylor-Polynom gleicher Ordnung.
+
+Dieses Ergebnis verdeutlicht den grundlegenden Vorteil der
+Padé-Approximation. Beide Verfahren verwenden ausschliesslich dieselben
+Informationen der Taylor-Reihe. Während die Taylor-Approximation diese
+Informationen direkt zu einem Polynom zusammenfasst, nutzt die
+Padé-Approximation sie zur Konstruktion einer rationalen Funktion.
+Dadurch kann häufig eine höhere Genauigkeit erreicht werden.
+
+Ein einzelnes Zahlenbeispiel erlaubt jedoch nur eine begrenzte Aussage
+über die Qualität einer Approximation. Daher wird im folgenden Abschnitt
+das Verhalten beider Verfahren über einen grösseren Wertebereich
+miteinander verglichen.
+
+\textbackslash subsection\{Vergleich der Approximationen\}
+\textbackslash label\{pade:subsection:vergleich\}
+
+Das vorherige Zahlenbeispiel zeigt den Unterschied zwischen Taylor- und
+Padé-Approximation lediglich für einen einzelnen Funktionswert. Für die
+Beurteilung eines Approximationsverfahrens ist jedoch insbesondere das
+Verhalten über einen grösseren Wertebereich von Interesse.
+
+Abbildung\textasciitilde\textbackslash ref\{pade:fig:vergleich\} zeigt
+den Verlauf der Exponentialfunktion, des Taylor-Polynoms zweiter Ordnung
+sowie der Padé-{[}1/1{]}-Approximation.
+
+\%Bild 2, Teil3, (vergleich), Taylor vs Pade 1-1
+
+In der unmittelbaren Umgebung des Entwicklungspunktes stimmen beide
+Approximationen nahezu mit der Exponentialfunktion überein. Mit
+zunehmendem Abstand wird jedoch deutlich, dass die Padé-Approximation
+den Verlauf der Exponentialfunktion besser beschreibt als das
+Taylor-Polynom.
+
+Der Grund hierfür liegt in der mathematischen Struktur der
+Approximation. Während ein Taylor-Polynom ausschliesslich aus Potenzen
+der Variablen besteht, besitzt die Padé-Approximation zusätzlich ein
+Nennerpolynom. Dadurch stehen weitere Freiheitsgrade zur Verfügung,
+welche eine bessere Anpassung an den Funktionsverlauf ermöglichen.
+
+Die Padé-{[}1/1{]}-Approximation besitzt allerdings auch
+Einschränkungen. Da ihr Nenner
+\textbackslash(1-\textbackslash frac\{x\}\{2\}\textbackslash) für
+\textbackslash(x=2\textbackslash) verschwindet, besitzt die
+Approximation an dieser Stelle eine Polstelle. Die Exponentialfunktion
+selbst besitzt keine Polstellen. Man spricht deshalb von einer
+künstlichen Polstelle, welche ausschliesslich durch die Approximation
+entsteht.
+
+Dieses Beispiel zeigt, dass auch Padé-Approximationen nicht exakt sind.
+Dennoch liefern sie in vielen Anwendungen eine deutlich bessere Näherung
+als Taylor-Polynome gleicher Ordnung. Eine weitere Verbesserung kann
+durch Padé-Approximationen höherer Ordnung erreicht werden.
+
+\textbackslash subsection\{Padé-Approximationen höherer Ordnung\}
+\textbackslash label\{pade:subsection:hoehere\}
+
+Die bisher betrachtete Padé-{[}1/1{]}-Approximation verwendet lediglich
+die ersten drei Koeffizienten der Taylor-Reihe. Soll die Genauigkeit
+weiter verbessert werden, müssen zusätzliche Informationen der
+Taylor-Reihe berücksichtigt werden. Dies geschieht durch
+Padé-Approximationen höherer Ordnung.
+
+Allgemein besitzt eine Padé-Approximation vom Typ
+\textbackslash({[}m/n{]}\textbackslash) die Form
+\textbackslash begin\{equation\} R\_\{m,n\}(x) = \textbackslash frac
+\{a\_0+a\_1x+\textbackslash cdots+a\_mx\^{}m\}
+\{1+b\_1x+\textbackslash cdots+b\_nx\^{}n\}.
+\textbackslash label\{pade:eq:mn\} \textbackslash end\{equation\} Der
+Zähler besitzt den Grad \textbackslash(m\textbackslash), der Nenner den
+Grad \textbackslash(n\textbackslash). Da der konstante Term des
+Nennerpolynoms auf \textbackslash(1\textbackslash) normiert wird,
+enthält die Approximation insgesamt \textbackslash(m+n+1\textbackslash)
+unbekannte Koeffizienten.
+
+Zur Bestimmung dieser Koeffizienten wird wiederum die Taylor-Reihe der
+ursprünglichen Funktion verwendet. Allgemein gilt
+\textbackslash begin\{equation\} f(x)-R\_\{m,n\}(x) = O(x\^{}\{m+n+1\}).
+\textbackslash label\{pade:eq:ordnung2\} \textbackslash end\{equation\}
+Dies bedeutet, dass die Taylor-Reihe der Funktion und die
+Reihenentwicklung der Padé-Approximation bis einschliesslich des Terms
+\textbackslash(x\^{}\{m+n\}\textbackslash) übereinstimmen. Erst ab
+höheren Potenzen treten Unterschiede auf.
+
+Als Beispiel wird nun die Padé-Approximation vom Typ
+\textbackslash({[}2/2{]}\textbackslash) betrachtet. Sie besitzt die Form
+\textbackslash begin\{equation\} R\_\{2,2\}(x) = \textbackslash frac
+\{a\_0+a\_1x+a\_2x\^{}2\} \{1+b\_1x+b\_2x\^{}2\}.
+\textbackslash label\{pade:eq:pade22\_ansatz\}
+\textbackslash end\{equation\}
+
+Im Vergleich zur Padé-{[}1/1{]}-Approximation treten nun insgesamt fünf
+unbekannte Koeffizienten auf. Nach der Entwicklung des Nenners, dem
+Ausmultiplizieren sowie dem Koeffizientenvergleich erhält man das
+entsprechende lineare Gleichungssystem. Die vollständige Herleitung
+erfolgt analog zur Padé-{[}1/1{]}-Approximation und wird deshalb an
+dieser Stelle nicht vollständig ausgeschrieben.
+
+Für die Exponentialfunktion ergeben sich die Koeffizienten
+\textbackslash begin\{align\} a\_0 \&= 1,\textbackslash\textbackslash{}
+a\_1 \&= \textbackslash frac12,\textbackslash\textbackslash{} a\_2 \&=
+\textbackslash frac1\{12\},\textbackslash\textbackslash{} b\_1 \&=
+-\textbackslash frac12,\textbackslash\textbackslash{} b\_2 \&=
+\textbackslash frac1\{12\}. \textbackslash end\{align\}
+
+Damit erhält man die Padé-{[}2/2{]}-Approximation
+\textbackslash begin\{equation\} R\_\{2,2\}(x) = \textbackslash frac
+\{1+\textbackslash frac\{x\}\{2\}+\textbackslash frac\{x\^{}2\}\{12\}\}
+\{1-\textbackslash frac\{x\}\{2\}+\textbackslash frac\{x\^{}2\}\{12\}\}.
+\textbackslash label\{pade:eq:pade22\} \textbackslash end\{equation\}
+
+Im Vergleich zur Padé-{[}1/1{]}-Approximation werden nun mehr
+Koeffizienten der Taylor-Reihe exakt reproduziert. Dadurch verbessert
+sich die Genauigkeit der Approximation über einen grösseren Bereich.
+
+Abbildung\textasciitilde\textbackslash ref\{pade:fig:pade22\} zeigt den
+Vergleich zwischen der Exponentialfunktion sowie den
+Padé-Approximationen erster und zweiter Ordnung.
+
+\%Bild 3, Teil3, (pade22), e\^{}x vs Pade 1-1 u 2-2
+
+Wie zu erwarten, nähert sich die Padé-{[}2/2{]}-Approximation dem
+exakten Funktionsverlauf über einen deutlich grösseren Bereich an als
+die Padé-{[}1/1{]}-Approximation. Mit steigender Ordnung verbessert sich
+die Approximation im Allgemeinen weiter, gleichzeitig nimmt jedoch auch
+der Rechenaufwand zur Bestimmung der Koeffizienten zu.
+
+Im letzten Abschnitt dieses Kapitels werden die wichtigsten
+Anwendungsgebiete der Padé-Approximation vorgestellt sowie ihre Vor- und
+Nachteile zusammengefasst.
+
+\textbackslash subsection\{Anwendungen der Padé-Approximation\}
+\textbackslash label\{pade:subsection:anwendungen\}
+
+Nachdem die mathematischen Grundlagen der Padé-Approximation vorgestellt
+wurden, stellt sich die Frage nach ihrer praktischen Bedeutung. Obwohl
+das Verfahren ursprünglich im Rahmen der Approximationstheorie
+entwickelt wurde, findet es heute in zahlreichen wissenschaftlichen und
+technischen Anwendungen Verwendung. Überall dort, wo Funktionen
+effizient und gleichzeitig mit hoher Genauigkeit ausgewertet werden
+müssen, kann die Padé-Approximation ihre Stärken ausspielen.
+
+Eine wichtige Anwendung findet sich in der numerischen Mathematik. Viele
+elementare Funktionen wie die Exponentialfunktion, der natürliche
+Logarithmus oder trigonometrische Funktionen werden in numerischen
+Algorithmen nicht direkt berechnet, sondern durch Approximationen
+ersetzt. Padé-Approximationen liefern dabei häufig genauere Ergebnisse
+als Taylor-Polynome gleicher Ordnung und werden deshalb in verschiedenen
+numerischen Verfahren eingesetzt.
+
+Ein weiteres bedeutendes Anwendungsgebiet ist die Regelungstechnik.
+Viele technische Systeme besitzen sogenannte Totzeiten. Zwischen einer
+Änderung der Eingangsgrösse und der Reaktion des Systems vergeht dabei
+eine bestimmte Zeit. Im Laplace-Bereich wird eine Totzeit durch
+\textbackslash begin\{equation\} e\^{}\{-sT\}
+\textbackslash label\{pade:eq:totzeit\} \textbackslash end\{equation\}
+beschrieben.
+
+Da diese Exponentialfunktion analytische Berechnungen erschwert, wird
+sie häufig durch eine Padé-Approximation ersetzt. Für eine
+Padé-{[}1/1{]}-Approximation ergibt sich
+\textbackslash begin\{equation\} e\^{}\{-sT\} \textbackslash approx
+\textbackslash frac\{1-\textbackslash frac\{sT\}\{2\}\}
+\{1+\textbackslash frac\{sT\}\{2\}\}.
+\textbackslash label\{pade:eq:totzeit\_pade\}
+\textbackslash end\{equation\} Dadurch entsteht eine rationale
+Übertragungsfunktion, welche sich mit den Methoden der klassischen
+Regelungstechnik wesentlich einfacher untersuchen lässt.
+
+Abbildung\textasciitilde\textbackslash ref\{pade:fig:totzeit\} zeigt
+beispielhaft den Vergleich zwischen der exakten Sprungantwort einer
+Totzeit und der entsprechenden Padé-{[}1/1{]}-Approximation.
+
+\%Bild 4, Teil3, (totzeit), Pade von Totzeit
+
+Auch bei der numerischen Lösung gewöhnlicher und partieller
+Differentialgleichungen werden Padé-Approximationen eingesetzt. Häufig
+wird zunächst eine Taylor-Reihe der Lösung bestimmt und anschliessend in
+eine Padé-Approximation umgewandelt. Dadurch kann die Lösung oftmals
+über einen grösseren Bereich mit höherer Genauigkeit beschrieben werden.
+
+Darüber hinaus finden Padé-Approximationen zahlreiche Anwendungen in der
+theoretischen Physik. Insbesondere in der Quantenmechanik, der
+statistischen Physik und der Strömungsmechanik treten
+Reihenentwicklungen auf, deren Konvergenzbereich begrenzt ist. Durch die
+Umwandlung dieser Reihen in rationale Funktionen lassen sich häufig
+genauere numerische Ergebnisse erzielen.
+
+Ein weiterer Vorteil der Padé-Approximation zeigt sich darin, dass sie
+nicht auf reelle Argumente beschränkt ist. Da sie für Funktionen mit
+konvergenter Potenzreihe konstruiert werden kann, besitzen insbesondere
+holomorphe Funktionen eine Padé-Approximation. Damit liefert die
+Padé-Approximation nicht nur für reelle, sondern auch für komplexe Werte
+eine Näherung.
+
+Ein anschauliches Beispiel liefert erneut die Exponentialfunktion. Für
+ein komplexes Argument \textbackslash(z=ix\textbackslash) gilt
+\textbackslash(e\^{}\{ix\}=\textbackslash cos(x)+i\textbackslash sin(x)\textbackslash).
+Eine Padé-Approximation der Exponentialfunktion kann deshalb auch zur
+Approximation von Sinus und Kosinus verwendet werden.
+Abbildung\textasciitilde\textbackslash ref\{pade:fig:komplex\} zeigt den
+Vergleich zwischen den exakten Funktionen und den aus der
+Padé-{[}1/1{]}-Approximation gewonnenen Real- und Imaginärteilen.
+
+\%Bild 5, Teil3, (komplex), Pade Komplex
+
+Ein weiterer Vorteil besteht darin, dass die Padé-Approximation die aus
+der Taylor-Reihe bekannte Ableitungsinformation erhält. Da die
+Reihenentwicklung der Padé-Approximation bis zur geforderten Ordnung mit
+jener der ursprünglichen Funktion übereinstimmt, stimmen auch die
+entsprechenden Ableitungen am Entwicklungspunkt überein. Die Ableitung
+einer Padé-Approximation liefert somit wiederum eine Approximation der
+Ableitung der ursprünglichen Funktion.
+
+Bei herkömmlichen Interpolationsverfahren ist diese Eigenschaft nicht
+automatisch gegeben. Soll eine Funktion und gleichzeitig ihre Ableitung
+an bestimmten Stellen approximiert werden, muss beispielsweise eine
+spezielle Methode wie die Hermite-Interpolation verwendet werden.
+
+\textbackslash subsection\{Vor- und Nachteile\}
+\textbackslash label\{pade:subsection:vorteile\}
+
+Wie jedes Approximationsverfahren besitzt auch die Padé-Approximation
+sowohl Vorteile als auch Einschränkungen.
+
+Ein wesentlicher Vorteil besteht darin, dass ausschliesslich die
+Koeffizienten der Taylor-Reihe benötigt werden. Zusätzliche
+Informationen über die Funktion sind nicht erforderlich. Durch die
+Darstellung als rationale Funktion kann der Verlauf vieler Funktionen
+genauer beschrieben werden als mit einem Taylor-Polynom gleicher
+Ordnung.
+
+Insbesondere ausserhalb der unmittelbaren Umgebung des
+Entwicklungspunktes liefern Padé-Approximationen häufig deutlich
+kleinere Approximationsfehler. Darüber hinaus können rationale
+Funktionen Eigenschaften beschreiben, welche mit Polynomen grundsätzlich
+nicht dargestellt werden können, beispielsweise asymptotisches
+Verhalten.
+
+Demgegenüber stehen jedoch auch einige Nachteile. Je höher die Ordnung
+der Padé-Approximation gewählt wird, desto grösser wird das zu lösende
+lineare Gleichungssystem und damit auch der Rechenaufwand. Zudem können
+künstliche Polstellen entstehen, welche in der ursprünglichen Funktion
+nicht vorhanden sind.
+
+Die wichtigsten Eigenschaften beider Verfahren sind in
+Tabelle\textasciitilde\textbackslash ref\{pade:tab:vor\_nachteile\}
+zusammengefasst.
+
+\textbackslash begin\{table\}{[}ht{]} \textbackslash centering
+\textbackslash caption\{Vergleich zwischen Taylor- und
+Padé-Approximation.\} \textbackslash label\{pade:tab:vor\_nachteile\}
+\textbackslash begin\{tabular\}\{lll\} \textbackslash hline Eigenschaft
+\& Taylor \& Padé\textbackslash\textbackslash{} \textbackslash hline
+Grundlage \& Taylor-Reihe \& Taylor-Reihe\textbackslash\textbackslash{}
+Darstellung \& Polynom \& rationale
+Funktion\textbackslash\textbackslash{} Genauigkeit \& lokal sehr gut \&
+häufig auf grösserem Bereich\textbackslash\textbackslash{} Polstellen \&
+keine \& künstliche Polstellen möglich\textbackslash\textbackslash{}
+Rechenaufwand \& gering \& höher\textbackslash\textbackslash{}
+Anwendungen \& lokale Approximation \& Numerik, Regelungstechnik,
+Physik\textbackslash\textbackslash{} \textbackslash hline
+\textbackslash end\{tabular\} \textbackslash end\{table\}

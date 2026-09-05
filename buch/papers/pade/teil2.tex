@@ -1,43 +1,192 @@
-%
-% teil2.tex -- Beispiel-File für teil2 
-%
-% (c) 2020 Prof Dr Andreas Müller, Hochschule Rapperswil
-%
-% !TEX root = ../../buch.tex
-% !TEX encoding = UTF-8
-%
-\section{Teil 2 
-\label{pade:section:teil2}}
-\kopfrechts{Teil 2}
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-quae ab illo inventore veritatis et quasi architecto beatae vitae
-dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
-est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
-velit, sed quia non numquam eius modi tempora incidunt ut labore
-et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima
-veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
-reprehenderit qui in ea voluptate velit esse quam nihil molestiae
-consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla
-pariatur?
+\% !TEX root = ../../buch.tex \% !TEX encoding = UTF-8 \%
+\textbackslash section\{Die Padé-Approximation\}
+\textbackslash label\{pade:section:pade\}
+\textbackslash kopfrechts\{Padé-Approximation\}
 
-\subsection{De finibus bonorum et malorum
-\label{pade:subsection:bonorum}}
-At vero eos et accusamus et iusto odio dignissimos ducimus qui
-blanditiis praesentium voluptatum deleniti atque corrupti quos
-dolores et quas molestias excepturi sint occaecati cupiditate non
-provident, similique sunt in culpa qui officia deserunt mollitia
-animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis
-est et expedita distinctio. Nam libero tempore, cum soluta nobis
-est eligendi optio cumque nihil impedit quo minus id quod maxime
-placeat facere possimus, omnis voluptas assumenda est, omnis dolor
-repellendus. Temporibus autem quibusdam et aut officiis debitis aut
-rerum necessitatibus saepe eveniet ut et voluptates repudiandae
-sint et molestiae non recusandae. Itaque earum rerum hic tenetur a
-sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-consequatur aut perferendis doloribus asperiores repellat.
+Im vorherigen Abschnitt wurde gezeigt, dass Taylor-Polynome eine
+Funktion lediglich in der Umgebung ihres Entwicklungspunktes gut
+approximieren. Obwohl die Taylor-Reihe wichtige Informationen über das
+lokale Verhalten einer Funktion liefert, nimmt ihre Genauigkeit mit
+zunehmendem Abstand vom Entwicklungspunkt häufig deutlich ab. Daraus
+ergibt sich unmittelbar die Frage, ob sich dieselben Informationen der
+Taylor-Reihe auf eine andere Weise nutzen lassen.
 
+Genau diese Fragestellung führte Henri Padé Ende des
+19.\textasciitilde Jahrhunderts zur Entwicklung seines
+Approximationsverfahrens. Anstatt die Koeffizienten der Taylor-Reihe
+direkt zu einem Polynom zusammenzufassen, werden sie verwendet, um eine
+rationale Funktion zu bestimmen. Unter einer rationalen Funktion
+versteht man den Quotienten zweier Polynome. Durch den zusätzlichen
+Nenner besitzt eine solche Funktion mehr Freiheitsgrade als ein
+einzelnes Polynom und kann den Verlauf vieler Funktionen genauer
+nachbilden.
 
+Allgemein besitzt eine Padé-Approximation vom Typ
+\textbackslash({[}m/n{]}\textbackslash) die Form
+\textbackslash begin\{equation\} R\_\{m,n\}(x) =
+\textbackslash frac\{P\_m(x)\}\{Q\_n(x)\} =
+\textbackslash frac\{a\_0+a\_1x+\textbackslash cdots+a\_mx\^{}m\}
+\{1+b\_1x+\textbackslash cdots+b\_nx\^{}n\}.
+\textbackslash label\{pade:eq:allgemein\} \textbackslash end\{equation\}
+
+Dabei bezeichnet \textbackslash(m\textbackslash) den Grad des
+Zählerpolynoms und \textbackslash(n\textbackslash) den Grad des
+Nennerpolynoms. Die Koeffizienten \textbackslash(a\_i\textbackslash) und
+\textbackslash(b\_i\textbackslash) sind zunächst unbekannt und müssen
+mithilfe der Taylor-Reihe bestimmt werden. Der konstante Term des
+Nennerpolynoms wird auf den Wert \textbackslash(1\textbackslash)
+normiert. Diese Normierung verändert die Approximation nicht, sorgt
+jedoch dafür, dass jede Padé-Approximation eindeutig dargestellt wird.
+Würde auch dieser Koeffizient als Unbekannte betrachtet, könnten
+dieselben rationalen Funktionen durch beliebig viele verschiedene
+Koeffizientensätze beschrieben werden. Zudem müssen die Koeffizienten
+\textbackslash(a\_m\textbackslash) und
+\textbackslash(b\_n\textbackslash) von null verschieden sein.
+Andernfalls wäre der tatsächliche Grad des Zähler- beziehungsweise
+Nennerpolynoms kleiner und es würde sich nicht mehr um eine echte
+\textbackslash({[}m/n{]}\textbackslash)-Approximation handeln.
+
+Das Ziel besteht darin, die unbekannten Koeffizienten so zu bestimmen,
+dass die Reihenentwicklung der Padé-Approximation möglichst viele
+Anfangsterme der Taylor-Reihe reproduziert. Die Taylor-Reihe liefert
+somit sämtliche Informationen, welche zur Konstruktion der
+Padé-Approximation benötigt werden. Zusätzliche Ableitungen oder weitere
+Funktionswerte sind nicht erforderlich.
+
+Allgemein gilt für eine Padé-Approximation vom Typ
+\textbackslash({[}m/n{]}\textbackslash), dass sich ihre
+Reihenentwicklung möglichst lange mit der Taylor-Reihe der
+ursprünglichen Funktion decken soll. Mathematisch lässt sich diese
+Forderung durch \textbackslash begin\{equation\} f(x)-R\_\{m,n\}(x) =
+O\textbackslash!\textbackslash left(x\^{}\{m+n+1\}\textbackslash right)
+\textbackslash label\{pade:eq:ordnung\} \textbackslash end\{equation\}
+ausdrücken. Die Landau-Notation \textbackslash(O\textbackslash)
+beschreibt hierbei die Ordnung des verbleibenden Approximationsfehlers.
+Die Gleichung bedeutet, dass sich die Taylor-Reihe der Funktion und die
+Reihenentwicklung der Padé-Approximation erst ab der Potenz
+\textbackslash(x\^{}\{m+n+1\}\textbackslash) unterscheiden. Alle
+vorhergehenden Koeffizienten stimmen exakt überein.
+
+Zur Veranschaulichung wird im Folgenden die Exponentialfunktion
+betrachtet. Für diese Funktion wird Schritt für Schritt eine
+Padé-Approximation vom Typ \textbackslash({[}1/1{]}\textbackslash)
+hergeleitet. Dieses Beispiel zeigt das grundlegende Prinzip des
+Verfahrens und bildet gleichzeitig die Grundlage für Approximationen
+höherer Ordnung.
+
+\textbackslash subsection\{Herleitung der Padé-{[}1/1{]}-Approximation\}
+\textbackslash label\{pade:subsection:pade11\}
+
+Zur Veranschaulichung wird die Exponentialfunktion
+\textbackslash(f(x)=e\^{}x\textbackslash) betrachtet. Gesucht wird eine
+Padé-Approximation vom Typ \textbackslash({[}1/1{]}\textbackslash). Dies
+bedeutet, dass sowohl der Zähler als auch der Nenner aus einem Polynom
+ersten Grades bestehen.
+
+Der allgemeine Ansatz lautet \textbackslash begin\{equation\}
+R\_\{1,1\}(x) = \textbackslash frac\{a\_0+a\_1x\}\{1+b\_1x\}.
+\textbackslash label\{pade:eq:pade11\_ansatz\}
+\textbackslash end\{equation\}
+
+Da der Zähler zwei unbekannte Koeffizienten und der Nenner einen
+weiteren unbekannten Koeffizienten enthält, müssen insgesamt drei
+Unbekannte bestimmt werden. Dementsprechend werden auch drei unabhängige
+Gleichungen benötigt.
+
+Diese Gleichungen erhält man durch den Vergleich mit der Taylor-Reihe
+der Exponentialfunktion. Aus
+Abschnitt\textasciitilde\textbackslash ref\{pade:section:taylor\} ist
+bekannt, dass diese lautet \textbackslash begin\{equation\} e\^{}x = 1 +
+x + \textbackslash frac\{x\^{}2\}\{2\} +
+\textbackslash frac\{x\^{}3\}\{6\} + \textbackslash frac\{x\^{}4\}\{24\}
++ \textbackslash cdots. \textbackslash label\{pade:eq:exp\_taylor\}
+\textbackslash end\{equation\}
+
+Ein direkter Vergleich der Koeffizienten ist zunächst nicht möglich, da
+die Padé-Approximation als Bruch vorliegt. Deshalb muss zunächst der
+Nenner entwickelt werden.
+
+Hierzu wird die geometrische Reihe verwendet. Für
+\textbackslash(\textbar y\textbar\textless1\textbackslash) gilt
+\textbackslash begin\{equation\} \textbackslash frac\{1\}\{1+y\} =
+1-y+y\^{}2-y\^{}3+y\^{}4-\textbackslash cdots.
+\textbackslash label\{pade:eq:geometrisch\}
+\textbackslash end\{equation\}
+
+Setzt man \textbackslash(y=b\_1x\textbackslash), so erhält man
+\textbackslash begin\{equation\} \textbackslash frac\{1\}\{1+b\_1x\} = 1
+- b\_1x + b\_1\^{}2x\^{}2 - b\_1\^{}3x\^{}3 +\textbackslash cdots.
+\textbackslash label\{pade:eq:nennerentwicklung\}
+\textbackslash end\{equation\}
+
+Damit kann auch die Padé-Approximation als Potenzreihe dargestellt
+werden: \textbackslash begin\{equation\} R\_\{1,1\}(x) = (a\_0+a\_1x)
+\textbackslash left( 1 - b\_1x + b\_1\^{}2x\^{}2 - b\_1\^{}3x\^{}3
++\textbackslash cdots \textbackslash right).
+\textbackslash label\{pade:eq:potenzreihe\}
+\textbackslash end\{equation\}
+
+Im nächsten Schritt wird dieses Produkt ausmultipliziert. Dabei wird
+zunächst jeder Summand des Zählerpolynoms mit jedem Summanden der
+Potenzreihe multipliziert. Anschliessend werden alle Terme gleicher
+Ordnung zusammengefasst. Dadurch erhält man
+\textbackslash begin\{equation\} R\_\{1,1\}(x) = a\_0 + (a\_1-a\_0b\_1)x
++ (a\_0b\_1\^{}2-a\_1b\_1)x\^{}2 + (a\_1b\_1\^{}2-a\_0b\_1\^{}3)x\^{}3
++\textbackslash cdots. \textbackslash label\{pade:eq:entwicklung\}
+\textbackslash end\{equation\}
+
+Nun liegen sowohl die Exponentialfunktion als auch die
+Padé-Approximation in Form einer Potenzreihe vor. Dadurch können die
+Koeffizienten gleicher Potenzen direkt miteinander verglichen werden.
+Aus dem Koeffizientenvergleich ergeben sich die drei Gleichungen
+\textbackslash begin\{equation\} \textbackslash begin\{aligned\} a\_0
+\&= 1,\textbackslash\textbackslash{} a\_1-a\_0b\_1 \&=
+1,\textbackslash\textbackslash{} a\_0b\_1\^{}2-a\_1b\_1 \&=
+\textbackslash frac\{1\}\{2\}. \textbackslash end\{aligned\}
+\textbackslash label\{pade:eq:gleichungssystem\}
+\textbackslash end\{equation\}
+
+Aus der ersten Gleichung folgt unmittelbar
+\textbackslash(a\_0=1\textbackslash). Damit reduziert sich das
+Gleichungssystem auf \textbackslash begin\{equation\}
+\textbackslash begin\{aligned\} a\_1-b\_1 \&=
+1,\textbackslash\textbackslash{} b\_1\^{}2-a\_1b\_1 \&=
+\textbackslash frac\{1\}\{2\}. \textbackslash end\{aligned\}
+\textbackslash label\{pade:eq:gleichungssystem\_reduziert\}
+\textbackslash end\{equation\}
+
+Die linke Seite der zweiten Gleichung lässt sich als \textbackslash{[}
+b\_1(b\_1-a\_1) \textbackslash{]} schreiben. Aus der ersten Gleichung
+folgt \textbackslash(a\_1-b\_1=1\textbackslash) beziehungsweise
+\textbackslash(b\_1-a\_1=-1\textbackslash). Somit ergibt sich
+\textbackslash{[} -b\_1=\textbackslash frac\{1\}\{2\}, \textbackslash{]}
+woraus unmittelbar \textbackslash begin\{equation\}
+b\_1=-\textbackslash frac\{1\}\{2\} \textbackslash label\{pade:eq:b1\}
+\textbackslash end\{equation\} folgt.
+
+Durch Einsetzen von
+\textbackslash(b\_1=-\textbackslash frac\{1\}\{2\}\textbackslash) in die
+erste Gleichung des reduzierten Systems erhält man
+\textbackslash begin\{equation\} a\_1 = 1-\textbackslash frac\{1\}\{2\}
+= \textbackslash frac\{1\}\{2\}. \textbackslash label\{pade:eq:a1final\}
+\textbackslash end\{equation\}
+
+Damit sind sämtliche unbekannten Koeffizienten bestimmt. Durch Einsetzen
+in
+Gleichung\textasciitilde\textbackslash eqref\{pade:eq:pade11\_ansatz\}
+ergibt sich die Padé-Approximation \textbackslash begin\{equation\}
+R\_\{1,1\}(x) = \textbackslash frac\{1+\textbackslash frac\{x\}\{2\}\}
+\{1-\textbackslash frac\{x\}\{2\}\}.
+\textbackslash label\{pade:eq:pade11\} \textbackslash end\{equation\}
+
+Dieses Ergebnis stellt die Padé-{[}1/1{]}-Approximation der
+Exponentialfunktion dar. Obwohl zu ihrer Herleitung ausschliesslich die
+ersten Koeffizienten der Taylor-Reihe verwendet wurden, entsteht keine
+Polynomfunktion, sondern eine rationale Funktion. Gerade diese
+unterschiedliche mathematische Struktur führt häufig dazu, dass die
+Padé-Approximation den Verlauf einer Funktion genauer beschreibt als ein
+Taylor-Polynom gleicher Ordnung.
+
+Um diesen Unterschied zu verdeutlichen, wird im folgenden Abschnitt die
+Padé-{[}1/1{]}-Approximation anhand eines konkreten Zahlenbeispiels mit
+dem Taylor-Polynom zweiter Ordnung verglichen.
